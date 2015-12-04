@@ -1,0 +1,121 @@
+a disk is 128 blocks, each of which is 1024 bytes. 
+only 1 block group. 
+32 inodes. 
+should set the type (in i_mode), i_size, i_links_count, i_blocks(disk sectors), and the i_block array. 
+
+blank lines don't matter (diff has an option for that), and 'used_dirs'
+
+access to block group descriptor. find bitmap. bitmap is supposed to be after the group descriptor. 
+
+we can know the block number of block_bitmap and inode_bitmap from my block_group_descriptor_table. 
+
+major version < 1, the first non-reserved inode number is fixed at 11. And sb->i_rev_level, this means we are using ext v0.x.? 
+
+
+block group = (inode - 1) / INODES_PER_GROUP
+
+index = (inode - 1) % INODES_PER_GROUP
+
+containinng block = (index * INODE_SIZE) / BLOCK_SIZE
+
+INODE_SIZE = 128, 	if VERSION < 1
+					or defined in the Superblock
+
+
+each inode contains 12 direct pointers, 1 singly-indirect pointer, 1 doubly-indirect block pointer, and 1 triply-indirect pointer. 
+
+it seems that the indirect pointers point to the data blocks. 
+
+directories are inodes which contain some number of 'entries' as their contents. these entries are nothing more than name/inode pair. a directory stores these entries in a linkedlist fashion in its content blocks. 
+
+How to read an inode ? 
+- read the superblock to find the size of each block, # of blocks per group, # of inodes per group, and starting block of first group (BGDT). 
+- determine which block group inode belongs to
+- read BGD corresponding to the block group which contains the inode to be looked up. 
+- from BGD, extract the location of block group's inode table
+- determine the index of inode in the inode table
+- index the inode table
+
+
+blocks allocated sequentially when FS is new. 
+inodes, blocks. 
+seeks ??? 
+
+cylinder group. 
+superblock --- ... --- cylinder group ... --- 
+
+
+in the block bitmap, or inode bitmap, each bit of 1 or 0 represents block/inode is being used or free. If we're given a block size of 1024 bytes, we would have a maximum number of blocks that the block bitmap can represent : 8 * 1024 = 8192. 
+
+
+------------------------------------------------------
+ext2_ls	arg1 arg2
+	1st: the name of ext2 formatted virtual disk
+	2nd: an absolute path on the ext2 formatted disk
+	looks like ls -1
+	it also prints out . and ..
+	if directory doesnt exist, print out "No such file or directory"
+
+ext2_cp arg1 arg2 arg3
+	1st: the name of an ext2 formatted virtual disk
+	2nd: the path to a file on native OS
+	3rd: an absolute path on ext2 virtual disk
+	looks like cp
+	if file or target location doesn't exist, return error (ENOENT)
+
+ext2_mkdir arg1 arg2
+	1st: the name of an ext2 formatted virtual disk
+	2nd: an absolute path on ext2 formatted disk
+	looks like mkdir
+	if component on the path to the location where final directory is to be created doesn't exist or if the directory already exists, return error (ENOENT or EEXIST)
+
+ext2_ln arg1 arg2 arg3
+	1st: the name of an ext2 formatted virtual disk
+	2nd: absolute path on ext2 formatted disk
+	3rd: absolute path on ext2 formatted disk
+	looks like ln
+	if the 1st location doesn't exist (ENOENT), if the 2nd location already exists (EEXIST), or if either location refers to a directory (EISDIR), then return error. 
+
+ext2_rm arg1 arg2
+	1st: the name of ext2 formatted virtual disk
+	2nd: an absolute path to a file or link on that disk
+	looks like rm
+	if the file doesn't exist or if it is a diretory, should return error
+
+
+
+super-block: ext2_super_block
+	s_inodes_count: total # of inodes on the disk
+	s_blocks_count: total # of blocks on the disk
+	s_log_block_size
+	s_block_per_group: how many blocks are in a block group
+
+block descriptor: ext2_group_descr
+	bg_block_bitmap: location of block bitmap
+	bg_inode_bitmap: location of inode bitmap
+	bg_inode_table: location of inode table
+
+block_bitmap:
+	1024 * 8 = 8192 bits, have no more than 8K blocks
+
+inode_bitmap:
+	
+inode_table:
+	
+
+i_blocks: 
+	the first 12 entries in i_blocks directly reference data blocks
+	entry 12 contains reference to a single indirect block (a block of block pointer)
+	entry 13 contains a reference to a doubly indirect block (a block of pointer to singly indirect blocks)
+	entry 14 contains a reference to a triply indirect block (a block of pointers to a doubly indirect blocks)
+
+
+directories: ext2_dir_entry_2
+	rec_len: record length, multiple of 4 bytes
+	name_len: name length, 
+
+
+
+
+
+

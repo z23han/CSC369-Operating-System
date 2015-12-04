@@ -1,0 +1,39 @@
+>./sim -f /u/csc369h/winter/pub/a2-traces/tr-simpleloop.ref -m 200 -s 3000 -a lru
+
+Hit count: 7893
+Miss count: 2675
+Clean evictions: 0
+Dirty evictions: 2475
+Total references : 10568
+Hit rate: 74.6877
+Miss rate: 25.3123
+
+wolf:~/369/course-36915s/assignments/a2/soln 580>./sim -f /u/csc369h/winter/pub/a2-traces/tr-simpleloop.ref -m 200 -s 3000 -a fifo
+
+Hit count: 7867
+Miss count: 2701
+Clean evictions: 12
+Dirty evictions: 2489
+Total references : 10568
+Hit rate: 74.4417
+Miss rate: 25.5583
+
+>./sim -f /u/csc369h/winter/pub/a2-traces/tr-simpleloop.ref -m 200 -s 3000 -a rand
+
+Hit count: 7865
+Miss count: 2703
+Clean evictions: 17
+Dirty evictions: 2486
+Total references : 10568
+Hit rate: 74.4228
+Miss rate: 25.5772
+
+>./sim -f /u/csc369h/winter/pub/a2-traces/tr-simpleloop.ref -m 200 -s 3000 -a clock
+
+Hit count: 7892
+Miss count: 2676
+Clean evictions: 0
+Dirty evictions: 2476
+Total references : 10568
+Hit rate: 74.6783
+Miss rate: 25.3217 

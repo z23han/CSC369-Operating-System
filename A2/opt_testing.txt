@@ -1,0 +1,36 @@
+m = 50
+Hit count: 7793
+Miss count: 2775
+Clean evictions: 94
+Dirty evictions: 2631
+Total references : 10568
+Hit rate: 73.7415
+Miss rate: 26.2585
+
+m = 100
+Hit count: 7892
+Miss count: 2676
+Clean evictions: 0
+Dirty evictions: 2576
+Total references : 10568
+Hit rate: 74.6783
+Miss rate: 25.3217
+
+m = 150
+Hit count: 7894
+Miss count: 2674
+Clean evictions: 0
+Dirty evictions: 2524
+Total references : 10568
+Hit rate: 74.6972
+Miss rate: 25.3028
+
+m = 200
+Hit count: 7894
+Miss count: 2674
+Clean evictions: 0
+Dirty evictions: 2474
+Total references : 10568
+Hit rate: 74.6972
+Miss rate: 25.3028
+

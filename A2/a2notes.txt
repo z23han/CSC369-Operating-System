@@ -1,0 +1,6 @@
+status bits: 
+- PG_VALID : if the page is in the physmem, it is valid; otherwise it is invalid (i.e. it is in the swapfile)
+- PG_DIRTY : if the page is being accessed by write (i.e. type = 'M' | type = 'S'), it is marked as DIRTY
+- PG_REF : if the page is being asked for (i.e. found from trace, which is for every accessed page), it is marked
+- PG_ONSWAP : if the page is moved from physmem to swapfile, it is marked
+
